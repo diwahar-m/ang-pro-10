@@ -8,7 +8,7 @@ import {
 } from './users/user-tasks/user-tasks.component';
 // import { NewTaskComponent } from './tasks/new-task/new-task.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { routes as userRoutes } from './users/users.routes';
+// import { routes as userRoutes } from './users/users.routes';
 import { inject } from '@angular/core';
 
 // Guards
@@ -34,7 +34,9 @@ export const routes: Routes = [
   {
     path: 'users/:userId',
     component: UserTasksComponent,
-    children: userRoutes,
+    loadChildren: () =>
+      import('./users/users.routes').then((mod) => mod.routes),
+    // children: userRoutes,
     canMatch: [dummyCanMatch],
     data: {
       message: 'hello',
